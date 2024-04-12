@@ -1,0 +1,214 @@
+###1.  Write a Python program to read first n lines of a file.
+PROGRAM:
+f=open("simple.txt","r")
+read=f.read()
+print(read)
+f.close()
+OUTPUT:
+C:\Users\243597\PycharmProjects\pythonProject\.venv\Scripts\python.exe C:\Users\243597\PycharmProjects\pythonProject\example.py 
+Ram writing a book
+Rohan drinking water
+Ramesh eating mango
+mohan singing a song.
+
+###2. Write a Python program to append text to a file and display the text.
+PROGRAM:
+f=open("simple.txt","a")
+f.write("The appended contend in text file ")
+f.close()
+OUTPUT:
+Ram writing a book
+Rohan drinking water
+Ramesh eating mango
+mohan singing a song.
+The appended contend in text file 
+
+###3. Write a Python program to read a file line by line and store it into a list.
+PROGRAM:
+f=open("simple.txt","r")
+read_line=f.readlines()
+print(read_line)
+#for removing back slace from output
+read_line=[x.strip() for x in read_line]
+print(read_line)
+f.close()
+OUTPUT:
+C:\Users\243597\PycharmProjects\pythonProject\.venv\Scripts\python.exe C:\Users\243597\PycharmProjects\pythonProject\example.py 
+['Ram writing a book\n', 'Rohan drinking water\n', 'Ramesh eating mango\n', 'mohan singing a song.\n', 'The appended contend in text file ']
+['Ram writing a book', 'Rohan drinking water', 'Ramesh eating mango', 'mohan singing a song.', 'The appended contend in text file']
+
+###4. Write a program to print each line of a file in reverse order.
+PROGRAM:
+with open("simple.txt", "r") as file:
+    for line in file:
+        reversed_line = line.strip()[::-1]  # Reversing the line
+        print(reversed_line)
+		
+OUTPUT:
+C:\Users\243597\PycharmProjects\pythonProject\.venv\Scripts\python.exe C:\Users\243597\PycharmProjects\pythonProject\example.py 
+koob a gnitirw maR
+retaw gniknird nahoR
+ognam gnitae hsemaR
+.gnos a gnignis nahom
+elif txet ni dnetnoc dedneppa ehT
+
+###5. Write a Python program to write a list content to a file.
+PROGRAM:
+def write_list_to_file(filename,list):
+    try:
+        with open(filename, 'w') as file:
+            for item in list:
+                file.write(str(item) + '\n')
+        print("List content has been successfully written to '{filename}'.")
+    except Exception as e:
+        print("An error occurred: {e}")
+filename = 'simple.txt'
+list = ['apple', 'banana', 'orange', 'grape', 'melon']  
+write_list_to_file(filename, list)
+
+OUTPUT:
+C:\Users\243597\PycharmProjects\pythonProject\.venv\Scripts\python.exe C:\Users\243597\PycharmProjects\pythonProject\example.py 
+List content has been successfully written to '{filename}'.
+### IN TEXT FILE SHOWING LIKE THIS
+apple
+banana
+orange
+grape
+melon
+
+###6. Write a program to compute the number of characters, words and lines in a file.
+PROGRAM:
+num_lines = 0
+num_words = 0
+num_chars = 0
+with open("simple.txt","r") as f:
+    for line in f:
+        words = line.split()
+        num_chars += len(line)
+        num_words += len(words)
+        num_lines += 1
+print("The no. of character in above text file:",num_chars)
+print("The no. of words in above text file:",num_words)
+print( "The no. of lines in above text file:",num_lines)
+
+OUTPUT:
+C:\Users\243597\PycharmProjects\pythonProject\.venv\Scripts\python.exe C:\Users\243597\PycharmProjects\pythonProject\example.py 
+The no. of character in above text file: 32
+The no. of words in above text file: 5
+The no. of lines in above text file: 5
+
+###7. Write a program to accept string/sentences from the user till the user enters “END” to. Save
+the data in a text file and then display only those sentences which begin with an uppercase
+alphabet.
+PROGRAM:
+def save_sentences():
+    sentences = []
+    while True:
+        sentence = input("Enter a sentence (type 'END' to stop): ")
+        if sentence.upper() == 'END':
+            break
+        sentences.append(sentence)
+
+    with open("sentences.txt", "w") as file:
+        for sentence in sentences:
+            file.write(sentence + "\n")
+
+
+def display_uppercase_sentences():
+    with open("sentences.txt", "r") as file:
+        for line in file:
+            if line.strip().startswith(tuple(chr(i) for i in range(65, 91))):
+                print(line.strip())
+
+
+save_sentences()
+print("\nSentences starting with uppercase letters:")
+display_uppercase_sentences()
+
+OUTPUT:
+C:\Users\243597\PycharmProjects\pythonProject\.venv\Scripts\python.exe C:\Users\243597\PycharmProjects\pythonProject\Practice11.py 
+Enter a sentence (type 'END' to stop): MOHAN EATING A MANGO
+Enter a sentence (type 'END' to stop): JDDJDJ END
+Enter a sentence (type 'END' to stop): END
+
+Sentences starting with uppercase letters:
+MOHAN EATING A MANGO
+JDDJDJ END
+
+
+###8. Write a program to enter the following records in a binary file:
+Item No integer
+Item_Name string
+Qty integer
+Price float
+Number of records to be entered should be accepted from the user. Read the file to display the
+records in the following format:
+Item No:
+Item Name :
+Quantity:
+Price per item:
+Amount: ( to be calculated as Price * Qty)
+
+PROGRAM:
+import pickle
+
+with open("item.dat", 'wb') as itemfile:
+    n = int(input("How many records to be entered? "))
+    for i in range(n):
+        ino = int(input("Enter item no: "))
+        iname = input("Enter item name: ")
+        qty = int(input("Enter quantity: "))
+        price = float(input("Enter price: "))
+        item = {"Item no": ino, "Item Name": iname, "Qty": qty, "Price": price}
+        pickle.dump(item, itemfile)
+    print("Successfully written item data")
+
+
+with open("item.dat", "rb") as file:
+    try:
+        while True:
+            item = pickle.load(file)
+            print("\nItem No:", item["Item no"])
+            print("Item Name:", item["Item Name"])
+            print("Quantity:", item["Qty"])
+            print("Price per item:", item["Price"])
+            print("Amount:", item["Qty"] * item["Price"])
+    except EOFError:
+        pass
+
+OUTPUT:
+C:\Users\243597\PycharmProjects\pythonProject\.venv\Scripts\python.exe C:\Users\243597\PycharmProjects\pythonProject\file.py 
+How many records to be entered? 3
+Enter item no: 1
+Enter item name: mango
+Enter quantity: 12
+Enter price: 999
+Enter item no: 2
+Enter item name: Orange
+Enter quantity: 15
+Enter price: 1250
+Enter item no: 3
+Enter item name: Banana
+Enter quantity: 20
+Enter price: 100
+Successfully written item data
+
+Item No: 1
+Item Name: mango
+Quantity: 12
+Price per item: 999.0
+Amount: 11988.0
+
+Item No: 2
+Item Name: Orange
+Quantity: 15
+Price per item: 1250.0
+Amount: 18750.0
+
+Item No: 3
+Item Name: Banana
+Quantity: 20
+Price per item: 100.0
+Amount: 2000.0
+
+Process finished with exit code 0
